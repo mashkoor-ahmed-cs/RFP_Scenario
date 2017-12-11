@@ -7,7 +7,7 @@ public class Parser {
     public static Problem parseString(String input) {
         String[] splitInput = input.split("#");
         String[] roomStr = splitInput[0].split(":");
-        int problemNo = Integer.parseInt(roomStr[0]);
+        int problemNo = Integer.parseInt(roomStr[0].trim());
 
         Room room = createRoom(roomStr[1]);
 
@@ -21,7 +21,7 @@ public class Parser {
         ArrayList<Furniture> furnitureList = new ArrayList<Furniture>();
         for(String furniture : furnitures) {
             String[] splitStr = furniture.split(":");
-            int cost = Integer.parseInt(splitStr[0]);
+            int cost = Integer.parseInt(splitStr[0].trim());
             ArrayList<Coordinate> coords = getCoords(splitStr[1]);
             furnitureList.add(new Furniture(cost, coords));
         }
@@ -35,13 +35,19 @@ public class Parser {
     }
 
     private static ArrayList<Coordinate> getCoords(String shapes) {
-        Scanner sc = new Scanner(shapes);
+        // (0, 0), (10, 0), (10, 10), (0, 10)
+        String[] splitStr = shapes.split("\\),");
         ArrayList<Coordinate> coords = new ArrayList<Coordinate>();
-        while (sc.hasNextDouble()) {
-            double x = sc.nextDouble();
-            double y = sc.nextDouble();
+
+        for(String str : splitStr)
+        {
+            str = str.replace("(", "").replace(")", "");
+            String[] strCoords = str.split(",");
+            double x = Double.parseDouble(strCoords[0].trim());
+            double y = Double.parseDouble(strCoords[1].trim());
             coords.add(new Coordinate(x, y));
         }
+
         return coords;
     }
 }
