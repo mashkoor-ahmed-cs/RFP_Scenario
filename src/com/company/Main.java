@@ -1,12 +1,13 @@
 package com.company;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         System.out.println("There are 30 problems to solve");
         String problemFileName = "problems.rfp";
 
