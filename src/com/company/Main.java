@@ -17,5 +17,9 @@ public class Main {
             problems.add(Parser.parseString(question));
         }
         System.out.println();
+
+        // Testing out shapeDrawer just for the room
+        ShapeDrawer shapeDrawer = new ShapeDrawer(problems.get(0).getRoom());
+        shapeDrawer.drawShape();
     }
 }

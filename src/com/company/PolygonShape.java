@@ -11,6 +11,10 @@ public class PolygonShape {
         calculateArea();
     }
 
+    public ArrayList<Coordinate> getCoords() {
+        return coords;
+    }
+
     public double getArea() {return area;}
 
     private void calculateArea() {

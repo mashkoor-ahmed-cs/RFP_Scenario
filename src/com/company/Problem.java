@@ -13,4 +13,13 @@ public class Problem {
         this.furnitureList = furnitureList;
         this.problemNo = problemNo;
     }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public ArrayList<Furniture> getFurnitureList() {
+        return furnitureList;
+    }
+
 }
