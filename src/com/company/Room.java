@@ -2,10 +2,8 @@ package com.company;
 
 import java.util.ArrayList;
 
-public class Room implements Shape {
-    public ArrayList<Coordinate> coords;
-
+public class Room extends PolygonShape {
     public Room(ArrayList<Coordinate> coords) {
-        this.coords = coords;
+        super(coords);
     }
 }

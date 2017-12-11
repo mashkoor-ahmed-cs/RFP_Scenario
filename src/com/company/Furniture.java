@@ -2,13 +2,13 @@ package com.company;
 
 import java.util.ArrayList;
 
-public class Furniture implements Shape {
-    int unitCost;
-    ArrayList<Coordinate> coords = new ArrayList<Coordinate>();
+public class Furniture extends PolygonShape {
+    private int unitCost;
+    private int realCost;
 
     public Furniture(int unitCost, ArrayList<Coordinate> coords)
     {
-        this.coords = coords;
+        super(coords);
         this.unitCost = unitCost;
     }
 }
