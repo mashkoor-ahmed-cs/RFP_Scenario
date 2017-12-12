@@ -1,18 +1,26 @@
 package com.company;
 
+import java.awt.geom.Path2D;
 import java.util.ArrayList;
 
 public class PolygonShape {
     private ArrayList<Coordinate> coords;
     private double area;
-    private ShapeDrawer drawer;
+    private Path2D.Double path;
 
     public PolygonShape(ArrayList<Coordinate> coords) {
         this.coords = coords;
-        this.drawer = new ShapeDrawer(this);
         calculateArea();
     }
 
+    public void drawShape(){
+        path.moveTo(coords.get(0).getX(), coords.get(0).getY());
+        for (int i = 1; i < coords.size(); i++){
+            path.lineTo(coords.get(i).getX(), coords.get(i).getY());
+        }
+        path.closePath();
+
+    }
     public ArrayList<Coordinate> getCoords() {
         return coords;
     }

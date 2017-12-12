@@ -27,7 +27,10 @@ public class Room extends PolygonShape {
             return false;
         }
         //find position to fit furniture if possible
-
+        f.moveTo(getCoords(0));
+        if(!overlaps(f)) {
+            return true;
+        }
         return false;
     }
 }
