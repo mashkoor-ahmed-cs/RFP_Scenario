@@ -34,7 +34,6 @@ public class Parser {
     }
 
     private static ArrayList<Coordinate> getCoords(String shapes) {
-        // (0, 0), (10, 0), (10, 10), (0, 10)
         String[] splitStr = shapes.split("\\),");
         ArrayList<Coordinate> coords = new ArrayList<Coordinate>();
 
