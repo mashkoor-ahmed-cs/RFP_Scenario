@@ -50,8 +50,9 @@ public class PolygonShape {
 
     public double getArea() {return area;}
 
+    //Checks if this shape intersects or contains another shape
     public boolean overlaps(PolygonShape shape) {
-        //not tested yet
+        //untested
         Area thisShape = new Area(path);
         Area otherShape = new Area(shape.getPath());
         thisShape.intersect(otherShape);
