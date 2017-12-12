@@ -10,6 +10,7 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         System.out.println("There are 30 problems to solve");
         String problemFileName = "problems.rfp";
+        String outputFileName = "output.txt";
 
         ReadTextFile readTextFile = new ReadTextFile(problemFileName);
         ArrayList<String> questions = readTextFile.getQuestions();
@@ -27,9 +28,12 @@ public class Main {
         frame.setSize(new Dimension(420, 240));
         frame.setVisible(true);
 
+        WriteTextFile writer = new WriteTextFile(outputFileName);
         for(Problem p : problems) {
             String solution = p.solveProblem();
             System.out.println(solution);
+            writer.writeLine(solution);
         }
+        writer.closeFile();
     }
 }
