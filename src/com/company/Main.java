@@ -32,7 +32,7 @@ public class Main {
         for(int i = 0; i < 10; i ++) {
             Problem p = problems.get(i);
             String solution = p.solveProblem();
-            System.out.println(solution);
+            System.out.println((int) p.getRoom().areaCovered() + "#" + solution);
             writer.writeLine(solution);
         }
         writer.closeFile();

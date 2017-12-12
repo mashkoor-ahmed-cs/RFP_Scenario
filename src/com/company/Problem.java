@@ -1,5 +1,6 @@
 package com.company;
 
+import java.awt.geom.PathIterator;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -35,6 +36,7 @@ public class Problem {
         s = s + problemNo + ": ";
         ArrayList<String> stringList = new ArrayList<>();
         for(Furniture f : room.getFurnitureList()) {
+            //TODO: Fix coordinates to either get points on path or change coordinates when fitting in room
             for(Coordinate c : f.getCoords()) {
                 s = s + "(" + c.getX() + ",";
                 s = s + c.getY() + "), ";
