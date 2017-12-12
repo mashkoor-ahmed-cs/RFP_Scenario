@@ -8,8 +8,7 @@ public class Problem {
     Room room;
     ArrayList<Furniture> furnitureList;
 
-    public Problem(int problemNo, Room room, ArrayList<Furniture> furnitureList)
-    {
+    public Problem(int problemNo, Room room, ArrayList<Furniture> furnitureList) {
         this.room = room;
         this.furnitureList = furnitureList;
         this.problemNo = problemNo;
@@ -25,8 +24,10 @@ public class Problem {
     }
 
     public String solveProblem() {
-        room.insertFurniture(furnitureList.get(0));
-        return "solution";
+        for(Furniture f : furnitureList) {
+            room.insertFurniture(f);
+        }
+        return problemNo + ": " + room.areaCovered();
     }
 
     //Sort furnitureList in order of descending realCost

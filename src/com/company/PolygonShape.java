@@ -60,6 +60,30 @@ public class PolygonShape {
         return !thisShape.isEmpty();
     }
 
+    public double getMaxX() {
+        return path.getBounds2D().getMaxX();
+    }
+
+    public double getMaxY() {
+        return path.getBounds2D().getMaxY();
+    }
+
+    public double getMinX() {
+        return path.getBounds2D().getMinX();
+    }
+
+    public double getMinY() {
+        return path.getBounds2D().getMinY();
+    }
+
+    public double getHeight() {
+        return path.getBounds2D().getHeight();
+    }
+
+    public double getWidth() {
+        return path.getBounds2D().getWidth();
+    }
+
     private void calculateArea() {
         double sum = 0.0;
         int n = coords.size() - 1;
