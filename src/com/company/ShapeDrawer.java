@@ -50,7 +50,7 @@ public class ShapeDrawer extends JComponent{
         }
         path.closePath();
         g2.draw(path);
-
+        
         return roomCoordinates.get(roomCoordinates.size() - 1);
     }
 
