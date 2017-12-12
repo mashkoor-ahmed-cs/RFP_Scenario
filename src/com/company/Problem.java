@@ -27,7 +27,23 @@ public class Problem {
         for(Furniture f : furnitureList) {
             room.insertFurniture(f);
         }
-        return problemNo + ": " + room.areaCovered();
+        return formatSolution();
+    }
+
+    public String formatSolution() {
+        String s = "";
+        s = s + problemNo + ": ";
+        ArrayList<String> stringList = new ArrayList<>();
+        for(Furniture f : furnitureList) {
+            for(Coordinate c : f.getCoords()) {
+                s = s + "(" + c.getX() + ",";
+                s = s + c.getY() + "), ";
+            }
+            s = s.substring(0, s.length() - 2);
+            s = s + "; ";
+        }
+        s = s.substring(0, s.length() - 2);
+        return s;
     }
 
     //Sort furnitureList in order of descending realCost

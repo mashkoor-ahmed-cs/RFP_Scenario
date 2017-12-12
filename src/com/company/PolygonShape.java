@@ -1,8 +1,10 @@
 package com.company;
 
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.Path2D;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 public class PolygonShape {
@@ -58,6 +60,11 @@ public class PolygonShape {
         Area otherShape = new Area(shape.getPath());
         thisShape.intersect(otherShape);
         return !thisShape.isEmpty();
+    }
+
+    public boolean contains(Coordinate c) {
+        Point2D p = new Point2D.Double(c.getX(), c.getY());
+        return path.contains(p);
     }
 
     public double getMaxX() {
