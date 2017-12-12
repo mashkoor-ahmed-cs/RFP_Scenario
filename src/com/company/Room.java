@@ -11,14 +11,6 @@ public class Room extends PolygonShape {
         furnitureList = new ArrayList<Furniture>();
     }
 
-    public boolean insertFurniture(Furniture f) {
-        if(furnitureFits(f)) {
-            furnitureList.add(f);
-            return true;
-        }
-        return false;
-    }
-
     public ArrayList<Furniture> getFurnitureList() {
         return furnitureList;
     }
@@ -28,7 +20,7 @@ public class Room extends PolygonShape {
         return (overlaps(f) && !contains(f));
     }
 
-
+    //check if furniture is in room with no intersection
     public boolean contains(Furniture f) {
         Area thisShape = new Area(this.getPath());
         Area otherShape = new Area(f.getPath());
@@ -45,6 +37,23 @@ public class Room extends PolygonShape {
         return areaSum/this.getArea() * 100;
     }
 
+    public boolean insertFurniture(Furniture f) {
+        if(furnitureFits(f)) {
+            furnitureList.add(f);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean overlapsAny(Furniture f) {
+        for(Furniture furniture : furnitureList) {
+            if(f.overlaps(furniture)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private boolean furnitureFits(Furniture f) {
         if(f.getArea() > this.getArea()) {
             return false;
@@ -52,24 +61,21 @@ public class Room extends PolygonShape {
         //find position to fit furniture if possible
         //currently not dealing with rotation
 
-        //move to first vertex of room
-        f.translate(getCoord(0).getX(), getCoord(0).getY());
-        if(contains(f)) {
-            return true;
-        }
-        int direction = 1;
+        //move to bottom-leftmost vertex of room
+        f.translate(getMinX()-f.getCoord(0).getX(), getMinY()-f.getCoord(0).getY());
 
-        /*while() {
+        while(f.getMinY() < this.getMaxY()) {
             //move around until fits in room
-            while (intersects(f)) {
-                f.translate(f.getWidth() * direction, 0);
+            while ((f.getMinX() < this.getMaxX()) && !contains(f)) {
+                f.translate(f.getWidth(), 0);
             }
-            if (contains(f)) {
+            if (contains(f) && !overlapsAny(f)) {
                 return true;
             }
+            //move back to leftmost point
+            f.translate(getMinX()-f.getCoord(0).getX(), 0);
             f.translate(0, f.getHeight());
-            direction = direction * -1;
-        }*/
+        }
 
         return false;
     }

@@ -26,5 +26,10 @@ public class Main {
         frame.pack();
         frame.setSize(new Dimension(420, 240));
         frame.setVisible(true);
+
+        for(Problem p : problems) {
+            String solution = p.solveProblem();
+            System.out.println(solution);
+        }
     }
 }
