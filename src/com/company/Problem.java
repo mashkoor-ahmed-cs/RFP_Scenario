@@ -16,6 +16,19 @@ public class Problem {
         sortFurnitureList();
     }
 
+    public Room getRoom() {
+        return room;
+    }
+
+    public ArrayList<Furniture> getFurnitureList() {
+        return furnitureList;
+    }
+
+    public String solveProblem() {
+        room.insertFurniture(furnitureList.get(0));
+        return "solution";
+    }
+
     //Sort furnitureList in order of descending realCost
     private void sortFurnitureList() {
         furnitureList.sort(new Comparator<Furniture>() {
@@ -27,13 +40,4 @@ public class Problem {
             }
         }.reversed());
     }
-
-    public Room getRoom() {
-        return room;
-    }
-
-    public ArrayList<Furniture> getFurnitureList() {
-        return furnitureList;
-    }
-
 }
