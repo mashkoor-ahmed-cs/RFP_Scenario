@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Problem {
     int problemNo;
@@ -12,5 +13,18 @@ public class Problem {
         this.room = room;
         this.furnitureList = furnitureList;
         this.problemNo = problemNo;
+        sortFurnitureList();
+    }
+
+    //Sort furnitureList in order of descending realCost
+    private void sortFurnitureList() {
+        furnitureList.sort(new Comparator<Furniture>() {
+            @Override
+            public int compare(Furniture o1, Furniture o2) {
+                if(o1.getRealCost() < o2.getRealCost()) { return -1; }
+                if(o1.getRealCost() > o2.getRealCost()) { return 1; }
+                return 0;
+            }
+        }.reversed());
     }
 }
