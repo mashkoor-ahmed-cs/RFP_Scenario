@@ -27,4 +27,13 @@ public class Problem {
             }
         }.reversed());
     }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public ArrayList<Furniture> getFurnitureList() {
+        return furnitureList;
+    }
+
 }
