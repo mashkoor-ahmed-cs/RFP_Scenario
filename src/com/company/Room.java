@@ -27,6 +27,7 @@ public class Room extends PolygonShape {
             return false;
         }
         //find position to fit furniture if possible
+
         return false;
     }
 }

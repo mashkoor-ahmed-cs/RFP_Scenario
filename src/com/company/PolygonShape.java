@@ -5,9 +5,11 @@ import java.util.ArrayList;
 public class PolygonShape {
     private ArrayList<Coordinate> coords;
     private double area;
+    private ShapeDrawer drawer;
 
     public PolygonShape(ArrayList<Coordinate> coords) {
         this.coords = coords;
+        this.drawer = new ShapeDrawer(this);
         calculateArea();
     }
 
