@@ -27,7 +27,8 @@ public class Room extends PolygonShape {
             return false;
         }
         //find position to fit furniture if possible
-        f.moveTo(getCoords(0));
+        //currently not dealing with rotation
+        f.transform(getCoord(0).getX(), getCoord(0).getY());
         if(!overlaps(f)) {
             return true;
         }
