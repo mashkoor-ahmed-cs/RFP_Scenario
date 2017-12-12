@@ -34,7 +34,7 @@ public class Problem {
         String s = "";
         s = s + problemNo + ": ";
         ArrayList<String> stringList = new ArrayList<>();
-        for(Furniture f : furnitureList) {
+        for(Furniture f : room.getFurnitureList()) {
             for(Coordinate c : f.getCoords()) {
                 s = s + "(" + c.getX() + ",";
                 s = s + c.getY() + "), ";
@@ -42,7 +42,9 @@ public class Problem {
             s = s.substring(0, s.length() - 2);
             s = s + "; ";
         }
-        s = s.substring(0, s.length() - 2);
+        if(s.length() > 3) {
+            s = s.substring(0, s.length() - 2);
+        }
         return s;
     }
 

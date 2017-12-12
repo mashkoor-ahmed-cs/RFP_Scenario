@@ -29,7 +29,8 @@ public class Main {
         frame.setVisible(true);
 
         WriteTextFile writer = new WriteTextFile(outputFileName);
-        for(Problem p : problems) {
+        for(int i = 0; i < 10; i ++) {
+            Problem p = problems.get(i);
             String solution = p.solveProblem();
             System.out.println(solution);
             writer.writeLine(solution);
