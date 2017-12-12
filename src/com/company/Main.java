@@ -15,7 +15,7 @@ public class Main {
         ArrayList<String> questions = readTextFile.getQuestions();
 
         ArrayList<Problem> problems = new ArrayList<Problem>();
-        for(String question : questions) {
+        for (String question : questions) {
             problems.add(Parser.parseString(question));
         }
         System.out.println();

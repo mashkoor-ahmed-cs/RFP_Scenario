@@ -13,6 +13,7 @@ public class PolygonShape {
     public PolygonShape(ArrayList<Coordinate> coords) {
         this.coords = coords;
         calculateArea();
+        path = new Path2D.Double();
         drawShape();
     }
 
@@ -28,13 +29,14 @@ public class PolygonShape {
         return path;
     }
 
-    public void transform(double x, double y) {
+    public void translate(double x, double y) {
         AffineTransform transform = new AffineTransform();
         transform.translate(x, y);
         path.transform(transform);
     }
 
     public void rotate(int degrees) {
+        //untested
         AffineTransform transform = new AffineTransform();
         transform.rotate(degrees);
         path.transform(transform);
@@ -52,7 +54,6 @@ public class PolygonShape {
 
     //Checks if this shape intersects or contains another shape
     public boolean overlaps(PolygonShape shape) {
-        //untested
         Area thisShape = new Area(path);
         Area otherShape = new Area(shape.getPath());
         thisShape.intersect(otherShape);
