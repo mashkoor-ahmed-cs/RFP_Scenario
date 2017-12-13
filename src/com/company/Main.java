@@ -27,7 +27,7 @@ public class Main {
         for(int i = 0; i < 10; i ++) {
             Problem p = problems.get(i);
             String solution = p.solveProblem();
-            System.out.println((int) p.getRoom().areaCovered() + "#" + solution);
+            System.out.println(p.problemNo + ": Area Covered: " + (int) p.getRoom().areaCovered() + "%, Total Real Cost: " + p.getTotalRealCost());
             writer.writeLine(solution);
         }
 

@@ -89,15 +89,26 @@ public class Room extends PolygonShape {
 
         //move to bottom-leftmost vertex of room
         f.translate(getMinX()-f.getCoord(0).getX(), getMinY()-f.getCoord(0).getY());
-        int rotateDegrees = 20;
+        int rotateDegrees = 10;
         int rotations = 360/rotateDegrees;
         int i = 1;
+
         while(f.getMinY() < this.getMaxY()) {
             //move around until fits in room
-            while ((f.getMinX() < this.getMaxX()) && !contains(f)) {
+            while ((f.getMinX() < this.getMaxX())) {
+                /*Area furnitureArea = new Area(f.getPath());
+                Area roomArea = new Area(this.getPath());
+                roomArea.intersect(furnitureArea);
+                if(!roomArea.isEmpty()) {
+                    furnitureArea.subtract(roomArea);
+                    f.translate(furnitureArea.getBounds2D().getWidth(), furnitureArea.getBounds2D().getHeight());
+                    if (contains(f) && !overlapsAny(f)) {
+                        return true;
+                    }
+                    f.translate(-furnitureArea.getBounds2D().getWidth(), -furnitureArea.getBounds2D().getHeight());
+                }*/
                 f.translate(f.getWidth(), 0);
 
-                //Rotation
                 /*while(i < rotations) {
                     f.rotate(rotateDegrees);
                     if(contains(f) && !overlapsAny(f)) {
@@ -105,9 +116,9 @@ public class Room extends PolygonShape {
                     }
                     i++;
                 }*/
-            }
-            if (contains(f) && !overlapsAny(f)) {
-                return true;
+                if (contains(f) && !overlapsAny(f)) {
+                    return true;
+                }
             }
             //move back to leftmost point
             f.translate(getMinX()-f.getCoord(0).getX(), 0);

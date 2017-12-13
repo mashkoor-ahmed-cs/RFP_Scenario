@@ -33,10 +33,7 @@ public class Problem {
         }
         furnitureList.removeAll(fittedFurniture);
         fittedFurniture.clear();
-        /*if(room.areaCovered() > 30) {
-            return formatSolution();
-        }
-        for(Furniture f : furnitureList) {
+        /* for(Furniture f : furnitureList) {
             if (room.insertFurnitureAtVertex(f)) {
                 fittedFurniture.add(f);
             }
@@ -70,6 +67,14 @@ public class Problem {
             s = s.substring(0, s.length() - 2);
         }
         return s;
+    }
+
+    public double getTotalRealCost() {
+        double totalCost = 0;
+        for(Furniture f : room.getFurnitureList()) {
+            totalCost = totalCost + f.getRealCost();
+        }
+        return totalCost;
     }
 
     //Sort furnitureList in order of descending realCost
