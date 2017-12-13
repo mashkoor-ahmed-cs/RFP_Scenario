@@ -25,11 +25,27 @@ public class Problem {
     }
 
     public String solveProblem() {
+        ArrayList<Furniture> fittedFurniture = new ArrayList<>();
         for(Furniture f : furnitureList) {
-            room.insertFurniture(f);
+            if (room.insertFurniture(f)) {
+                fittedFurniture.add(f);
+            }
         }
+        furnitureList.removeAll(fittedFurniture);
+        fittedFurniture.clear();
+        /*if(room.areaCovered() > 30) {
+            return formatSolution();
+        }
+        for(Furniture f : furnitureList) {
+            if (room.insertFurnitureAtVertex(f)) {
+                fittedFurniture.add(f);
+            }
+        }
+        furnitureList.removeAll(fittedFurniture);
+        fittedFurniture.clear();*/
         return formatSolution();
     }
+
 
     public String formatSolution() {
         String s = "";
