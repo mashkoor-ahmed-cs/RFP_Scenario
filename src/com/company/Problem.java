@@ -36,10 +36,16 @@ public class Problem {
         s = s + problemNo + ": ";
         ArrayList<String> stringList = new ArrayList<>();
         for(Furniture f : room.getFurnitureList()) {
-            //TODO: Fix coordinates to either get points on path or change coordinates when fitting in room
-            for(Coordinate c : f.getCoords()) {
-                s = s + "(" + c.getX() + ",";
-                s = s + c.getY() + "), ";
+            PathIterator pathIterator = f.getPath().getPathIterator(null);
+            double[] coords = new double[6];
+
+            while (!pathIterator.isDone()) {
+                int type = pathIterator.currentSegment(coords);
+                if(type != PathIterator.SEG_CLOSE) {
+                    s = s + "(" + coords[0] + ",";
+                    s = s + coords[1] + "), ";
+                }
+                pathIterator.next();
             }
             s = s.substring(0, s.length() - 2);
             s = s + "; ";
