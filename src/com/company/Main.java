@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("There are 30 problems to solve.");
-        System.out.println("Which question do you want to see? Enter number from 0-30: ");
+        System.out.println("Which question do you want to see? Enter number from 1-30: ");
         int problemToShow = scanner.nextInt();
 
         String problemFileName = "problems.rfp";

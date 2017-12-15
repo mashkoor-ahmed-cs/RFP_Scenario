@@ -11,22 +11,43 @@ public class ShapeDrawer extends JComponent{
     private Coordinate lastcoordinates;
     private ArrayList<Furniture> listFurnitures;
     private Room room;
-    static  double width =0;
     static  double height =0;
     static  double maxHeight =0;
-
+    int scaleX = 30;
+    int scaleY = scaleX;
+    int width = 1000;
 
     public ShapeDrawer(Problem p){
         this.listFurnitures = p.getFurnitureList();
         this.room = p.getRoom();
+        setup();
+    }
+
+    private void setup() {
+        double currX = room.getMaxX() + 1;
+        double currY = 0;
+        double maxHeight = 0;
+        for(Furniture f : listFurnitures) {
+            f.translate(currX - f.getMinX(), currY - f.getMinY());
+            currX = currX + f.getWidth() + 1;
+            if (f.getHeight() > maxHeight) {
+                maxHeight = f.getHeight();
+            }
+            if (currX > width/scaleX) {
+                currX = room.getMaxX() + 1;
+                currY = currY + maxHeight + 1;
+                maxHeight = 0;
+            }
+        }
     }
 
 
     @Override
     public void paint(Graphics g) {
         drawRoom((Graphics2D) g);
-
-
+        for(Furniture f : listFurnitures) {
+            drawFurniture((Graphics2D) g, f);
+        }
     }
 
     private void drawFurniture(Graphics2D g, Furniture furnitureItem) {
@@ -52,7 +73,7 @@ public class ShapeDrawer extends JComponent{
 
 
         if(room.getArea() <=100000) {
-            g2.scale(50, 50);
+            g2.scale(scaleX, scaleY);
         }
 
         if(mostnegativeX<0) {
