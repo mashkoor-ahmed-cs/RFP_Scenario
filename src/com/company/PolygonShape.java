@@ -15,8 +15,89 @@ public class PolygonShape {
     public PolygonShape(ArrayList<Coordinate> coords) {
         this.coords = coords;
         calculateArea();
+        calculateAngles();
         path = new Path2D.Double();
         drawShape();
+    }
+
+    public double getAngle(int index) {
+        return coords.get(index).getAngle();
+    }
+
+    private void calculateAngles() {
+        for(int i = 0; i < coords.size(); i++) {
+            coords.get(i).setAngle(angleAtPoint(i));
+        }
+    }
+
+    private double angleAtPoint(int index) {
+        Coordinate point = coords.get(index);
+        Coordinate prevPoint;
+        if(index == 0) {
+            prevPoint = coords.get(coords.size()-1);
+        }
+        else {
+            prevPoint = coords.get(index - 1);
+        }
+        Coordinate nextPoint;
+        if(index == coords.size() - 1) {
+            nextPoint = coords.get(0);
+        }
+        else {
+            nextPoint = coords.get(index + 1);
+        }
+        double angle1 = angleFromNorth(point, nextPoint);
+        double angle2 = angleFromNorth(point, prevPoint);
+        double angle = angle1 - angle2;
+        if(angle < 0) {
+            coords.get(index).setClosestNorthAngle(angle2);
+            return angle + 360;
+        }
+        coords.get(index).setClosestNorthAngle(angle1);
+        return angle;
+    }
+
+    private double angleFromNorth(Coordinate c1, Coordinate c2) {
+        return Math.toDegrees(Math.atan2(c1.getX() - c2.getX(), c1.getY() - c2.getY()));
+    }
+
+    public void translate(double x, double y) {
+        AffineTransform transform = new AffineTransform();
+        transform.translate(x, y);
+        path.transform(transform);
+        for(Coordinate c : getCoords()) {
+            c.setX(c.getX() + x);
+            c.setY(c.getY() + y);
+        }
+    }
+
+
+    public void moveVertexTo(double startX, double startY, double destX, double destY) {
+        AffineTransform transform = new AffineTransform();
+        double tX = destX - startX;
+        double tY = destY - startY;
+        transform.translate(tX, tY);
+        path.transform(transform);
+        for(Coordinate c : getCoords()) {
+            c.setX(c.getX() + tX);
+            c.setY(c.getY() + tY);
+        }
+    }
+
+    public void rotate(double degrees) {
+        //untested
+        double radians = Math.toRadians(degrees);
+        AffineTransform transform = new AffineTransform();
+        transform.rotate(radians);
+        path.transform(transform);
+    }
+
+    public void rotateAroundPoint(double degrees, Coordinate c) {
+        //untested
+        double radians = Math.toRadians(degrees);
+        AffineTransform transform = new AffineTransform();
+        transform.rotate(radians, c.getX(), c.getY());
+        path.transform(transform);
     }
 
     public void drawShape(){
@@ -29,19 +110,6 @@ public class PolygonShape {
 
     public Path2D.Double getPath() {
         return path;
-    }
-
-    public void translate(double x, double y) {
-        AffineTransform transform = new AffineTransform();
-        transform.translate(x, y);
-        path.transform(transform);
-    }
-
-    public void rotate(int degrees) {
-        //untested
-        AffineTransform transform = new AffineTransform();
-        transform.rotate(degrees);
-        path.transform(transform);
     }
 
     public ArrayList<Coordinate> getCoords() {

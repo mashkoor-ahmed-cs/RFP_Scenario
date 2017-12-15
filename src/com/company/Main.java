@@ -24,7 +24,7 @@ public class Main {
 
 
         WriteTextFile writer = new WriteTextFile(outputFileName);
-        for(int i = 0; i < 10; i ++) {
+        for(int i = 0; i < 11; i ++) {
             Problem p = problems.get(i);
             String solution = p.solveProblem();
             System.out.println(p.problemNo + ": Area Covered: " + (int) p.getRoom().areaCovered() + "%, Total Real Cost: " + p.getTotalRealCost());

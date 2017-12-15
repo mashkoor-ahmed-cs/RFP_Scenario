@@ -33,6 +33,11 @@ public class Problem {
         }
         furnitureList.removeAll(fittedFurniture);
         fittedFurniture.clear();
+        for(Furniture f : furnitureList) {
+            if (room.insertFurnitureByAngle(f)) {
+                fittedFurniture.add(f);
+            }
+        }
         /* for(Furniture f : furnitureList) {
             if (room.insertFurnitureAtVertex(f)) {
                 fittedFurniture.add(f);

@@ -37,6 +37,14 @@ public class Room extends PolygonShape {
         return areaSum/this.getArea() * 100;
     }
 
+    public boolean insertFurnitureByAngle(Furniture f) {
+        if(fitByAngle(f)) {
+            furnitureList.add(f);
+            return true;
+        }
+        return false;
+    }
+
     public boolean insertFurnitureAtVertex(Furniture f) {
         if(fitAtVertices(f)) {
             furnitureList.add(f);
@@ -57,6 +65,29 @@ public class Room extends PolygonShape {
         for(Furniture furniture : furnitureList) {
             if(f.overlaps(furniture)) {
                 return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean fitByAngle(Furniture f) {
+        double diff = 10;
+        double minAngle = 90;
+        for(Coordinate roomC : this.getCoords()) {
+            double thisAngle = roomC.getAngle();
+
+            for(Coordinate furnC : f.getCoords()) {
+                if (furnC.getAngle() <= minAngle && Math.abs(thisAngle - furnC.getAngle()) < diff) {
+
+                    f.moveVertexTo(furnC.getX(), furnC.getY(), roomC.getX(), roomC.getY());
+
+                    double rotateDegrees = roomC.getClosestNorthAngle() - furnC.getClosestNorthAngle();
+                    f.rotateAroundPoint(rotateDegrees, roomC);
+                    if (contains(f) && !overlapsAny(f)) {
+                        return true;
+                    }
+                    f.rotateAroundPoint(-rotateDegrees, roomC);
+                }
             }
         }
         return false;
