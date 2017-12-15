@@ -82,9 +82,7 @@ public class ShapeDrawer extends JComponent{
 
     private void drawRoom(Graphics2D g){
         Graphics2D g2 = g;
-        g2.setStroke(new BasicStroke(.10f));
-
-
+        g2.setStroke(new BasicStroke(.03f));
 
         double mostnegativeX=room.getMinX();
         double mostnegativeY=room.getMinY();
