@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Path2D;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Random;
 
 public class ShapeDrawer extends JComponent{
@@ -16,6 +17,8 @@ public class ShapeDrawer extends JComponent{
     int scaleX = 30;
     int scaleY = scaleX;
     int width = 1000;
+    double minCost;
+    double maxCost;
 
     public ShapeDrawer(Problem p){
         this.listFurnitures = p.getFurnitureList();
@@ -24,6 +27,13 @@ public class ShapeDrawer extends JComponent{
     }
 
     private void setup() {
+        double maxRoomFurn = room.getFurnitureList().get(0).getRealCost();
+        double maxOutsideFurn = listFurnitures.get(0).getRealCost();
+        double minRoomFurn = room.getFurnitureList().get(room.getFurnitureList().size()-1).getRealCost();
+        double minOutsideFurn = listFurnitures.get(listFurnitures.size()-1).getRealCost();
+        this.maxCost = Math.max(maxRoomFurn, maxOutsideFurn);
+        this.minCost = Math.min(minRoomFurn, minOutsideFurn);
+
         double currX = room.getMaxX() + 1;
         double currY = 0;
         double maxHeight = 0;
@@ -53,13 +63,21 @@ public class ShapeDrawer extends JComponent{
     private void drawFurniture(Graphics2D g, Furniture furnitureItem) {
         Graphics2D g2 = g;
         g2.setStroke(new BasicStroke(.02f));
-        g2.setColor(new Color((int) (Math.random()*0x1000000)));
+        Color c = getColor(furnitureItem);
+        g2.setColor(c);
 
 
         g2.draw(furnitureItem.getPath());
         g2.fill(furnitureItem.getPath());
 
 
+    }
+
+    private Color getColor(Furniture furniture) {
+        float shade =  (float)((furniture.getRealCost()-minCost)/(maxCost-minCost));
+        float blue = shade;
+        float red = (1-shade);
+        return new Color(red, 0, blue);
     }
 
     private void drawRoom(Graphics2D g){

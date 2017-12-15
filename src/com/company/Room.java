@@ -111,6 +111,35 @@ public class Room extends PolygonShape {
         return false;
     }
 
+    private boolean moveByIntersection(Furniture f, double rotateDegrees) {
+        int i = 0;
+        double rotations = 360/rotateDegrees;
+        Area furnitureArea = new Area(f.getPath());
+        Area roomArea = new Area(this.getPath());
+        roomArea.intersect(furnitureArea);
+        if(!roomArea.isEmpty()) {
+            furnitureArea.subtract(roomArea);
+            f.translate(furnitureArea.getBounds2D().getWidth(), 0);
+            if (contains(f) && !overlapsAny(f)) {
+                return true;
+            }
+            f.translate(0, furnitureArea.getBounds2D().getHeight());
+            if (contains(f) && !overlapsAny(f)) {
+                return true;
+            }
+            while(i < rotations) {
+                f.rotate(rotateDegrees);
+                if(contains(f) && !overlapsAny(f)) {
+                    return true;
+                }
+                i++;
+            }
+            i = 0;
+            f.translate(-furnitureArea.getBounds2D().getWidth(), -furnitureArea.getBounds2D().getHeight());
+        }
+        return false;
+    }
+
     private boolean furnitureFits(Furniture f) {
         if(f.getArea() > this.getArea()) {
             return false;
@@ -120,36 +149,28 @@ public class Room extends PolygonShape {
 
         //move to bottom-leftmost vertex of room
         f.translate(getMinX()-f.getCoord(0).getX(), getMinY()-f.getCoord(0).getY());
-        int rotateDegrees = 10;
-        int rotations = 360/rotateDegrees;
-        int i = 1;
+        double rotateDegrees = 30;
+        double rotations = 360/rotateDegrees;
+        int i = 0;
 
         while(f.getMinY() < this.getMaxY()) {
             //move around until fits in room
             while ((f.getMinX() < this.getMaxX())) {
-                /*Area furnitureArea = new Area(f.getPath());
-                Area roomArea = new Area(this.getPath());
-                roomArea.intersect(furnitureArea);
-                if(!roomArea.isEmpty()) {
-                    furnitureArea.subtract(roomArea);
-                    f.translate(furnitureArea.getBounds2D().getWidth(), furnitureArea.getBounds2D().getHeight());
-                    if (contains(f) && !overlapsAny(f)) {
-                        return true;
-                    }
-                    f.translate(-furnitureArea.getBounds2D().getWidth(), -furnitureArea.getBounds2D().getHeight());
-                }*/
+                if(moveByIntersection(f, rotateDegrees)) {
+                    return true;
+                }
                 f.translate(f.getWidth(), 0);
-
-                /*while(i < rotations) {
-                    f.rotate(rotateDegrees);
+                if(contains(f) && !overlapsAny(f)) {
+                    return true;
+                }
+                while(i < rotations) {
+                    f.rotateAroundPoint(rotateDegrees, f.getCoord(0));
                     if(contains(f) && !overlapsAny(f)) {
                         return true;
                     }
                     i++;
-                }*/
-                if (contains(f) && !overlapsAny(f)) {
-                    return true;
                 }
+                i = 0;
             }
             //move back to leftmost point
             f.translate(getMinX()-f.getCoord(0).getX(), 0);
