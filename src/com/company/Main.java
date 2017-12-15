@@ -25,7 +25,7 @@ public class Main {
             problems.add(Parser.parseString(question));
         }
         System.out.println();
-        
+
         WriteTextFile writer = new WriteTextFile(outputFileName);
         for(int i = problemToShow - 1; i < problemToShow; i ++) {
             Problem p = problems.get(i);

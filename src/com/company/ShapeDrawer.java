@@ -31,7 +31,7 @@ public class ShapeDrawer extends JComponent{
 
     private void drawFurniture(Graphics2D g, Furniture furnitureItem) {
         Graphics2D g2 = g;
-        g2.setStroke(new BasicStroke(.10f));
+        g2.setStroke(new BasicStroke(.02f));
         g2.setColor(new Color((int) (Math.random()*0x1000000)));
 
 
