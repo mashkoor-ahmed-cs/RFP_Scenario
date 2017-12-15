@@ -4,11 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
-        System.out.println("There are 30 problems to solve");
+        Scanner scanner = new Scanner();
+        System.out.println("There are 30 problems to solve.");
+        System.out.println("Which question do you want to see? Enter number from 0-30: ");
+        int problemToShow = scanner.nextInt();
+
         String problemFileName = "problems.rfp";
         String outputFileName = "output.txt";
 
@@ -24,7 +29,7 @@ public class Main {
 
 
         WriteTextFile writer = new WriteTextFile(outputFileName);
-        for(int i = 0; i < 11; i ++) {
+        for(int i = problemToShow - 1; i < problemToShow; i ++) {
             Problem p = problems.get(i);
             String solution = p.solveProblem();
             System.out.println(p.problemNo + ": Area Covered: " + (int) p.getRoom().areaCovered() + "%, Total Real Cost: " + p.getTotalRealCost());
@@ -35,13 +40,13 @@ public class Main {
 
         writer.closeFile();
 
-        JFrame frame = new JFrame("Draw problem #1");
+        JFrame frame = new JFrame("Visualiser");
 
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.getContentPane().add(new ShapeDrawer(problems.get(2)));
+        frame.getContentPane().add(new ShapeDrawer(problems.get(problemToShow - 1)));
         frame.pack();
-        frame.setSize(new Dimension(800, 400));
+        frame.setSize(new Dimension(1200, 600));
         frame.setVisible(true);
     }
 }
